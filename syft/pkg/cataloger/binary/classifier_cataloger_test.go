@@ -1354,6 +1354,17 @@ func Test_Cataloger_PositiveCases(t *testing.T) {
 			},
 		},
 		{
+			logicalFixture: "deno/1.10.3/linux-amd64",
+			expected: pkg.Package{
+				Name:      "deno",
+				Version:   "1.10.3",
+				Type:      "binary",
+				PURL:      "pkg:generic/deno@1.10.3",
+				Locations: locations("deno"),
+				Metadata:  metadata("deno-binary"),
+			},
+		},
+		{
 			logicalFixture: "deno/2.6.3/linux-amd64",
 			expected: pkg.Package{
 				Name:      "deno",
@@ -1483,6 +1494,17 @@ func Test_Cataloger_PositiveCases(t *testing.T) {
 				PURL:      "pkg:generic/openssl@1.1.1zb",
 				Locations: locations("openssl"),
 				Metadata:  metadata("openssl-binary"),
+			},
+		},
+		{
+			logicalFixture: "aws-lc/1.69.0/linux-amd64",
+			expected: pkg.Package{
+				Name:      "aws-lc",
+				Version:   "1.69.0",
+				Type:      "binary",
+				PURL:      "pkg:generic/aws-lc@1.69.0",
+				Locations: locations("openssl"),
+				Metadata:  metadata("openssl-binary-aws-lc"),
 			},
 		},
 		{
@@ -1745,6 +1767,25 @@ func Test_Cataloger_PositiveCases(t *testing.T) {
 				Version:   "1.19.1",
 				Type:      "binary",
 				PURL:      "pkg:generic/elixir@1.19.1",
+				Locations: locations("elixir", "lib/elixir/ebin/elixir.app"),
+				Metadata: pkg.BinarySignature{
+					Matches: []pkg.ClassifierMatch{
+						match("elixir-binary", "elixir"),
+						match("elixir-library", "lib/elixir/ebin/elixir.app"),
+					},
+				},
+			},
+		},
+		{
+			// release-candidate elixir image — pre-fix the matchers stripped the
+			// "-rc.1" suffix from the elixir-library result and missed the
+			// elixir-binary entirely (#4819).
+			logicalFixture: "elixir/1.12.0-rc.1/linux-amd64",
+			expected: pkg.Package{
+				Name:      "elixir",
+				Version:   "1.12.0-rc.1",
+				Type:      "binary",
+				PURL:      "pkg:generic/elixir@1.12.0-rc.1",
 				Locations: locations("elixir", "lib/elixir/ebin/elixir.app"),
 				Metadata: pkg.BinarySignature{
 					Matches: []pkg.ClassifierMatch{
@@ -2225,6 +2266,105 @@ func Test_Cataloger_PositiveCases(t *testing.T) {
 				PURL:      "pkg:generic/envoy@1.6.0",
 				Locations: locations("envoy"),
 				Metadata:  metadata("envoy-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.15.1/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.15.1",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.15.1",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.11.8/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.11.8",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.11.8",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.9.6/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.9.6",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.9.6",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.7.1/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.7.1",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.7.1",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.12.0-beta.0/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.12.0-beta.0",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.12.0-beta.0",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.2.0-beta.1/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.2.0-beta.1",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.2.0-beta.1",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/1.0.0-alpha.2/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "1.0.0-alpha.2",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@1.0.0-alpha.2",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/0.34.0/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "0.34.0",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@0.34.0",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
+			},
+		},
+		{
+			logicalFixture: "nginx-ingress-controller/0.33.0/linux-amd64",
+			expected: pkg.Package{
+				Name:      "nginx-ingress-controller",
+				Version:   "0.33.0",
+				Type:      "binary",
+				PURL:      "pkg:generic/nginx-ingress-controller@0.33.0",
+				Locations: locations("nginx-ingress-controller"),
+				Metadata:  metadata("ingress-nginx-binary"),
 			},
 		},
 	}
